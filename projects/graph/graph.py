@@ -93,7 +93,7 @@ class Graph:
         #### and add them to our stack
                     s.push(neighbor)
 
-
+    base_case = []
 
     def dft_recursive(self, starting_vertex):
         """
@@ -102,7 +102,35 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+
+        #add the starting vertex (to what?)
+        #add it's neighbors
+        #use recursion to add next neighbors IF next neighbors aren't already present?
+        #pop and print until empty
+
+        ##WHAT IS MY BASE CASE (the very first starting vertex?)
+
+
+
+         # wont work, it's going to make a new list at every level!!
+        if starting_vertex not in self.base_case:
+            self.base_case.append(starting_vertex)
+            print(starting_vertex)
+            neighbors = self.get_neighbors(starting_vertex)
+            for neighbor in neighbors:
+                self.dft_recursive(neighbor)
+        else:
+            pass
+
+
+        #check starting vertex (a) to see if it was already printed
+        #check it's next neighbor (b)
+        #check b's next neighbor (c)
+        # check c's next neighbor, and so on until global stack empty? OR starting vertex == a
+
+
+
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
