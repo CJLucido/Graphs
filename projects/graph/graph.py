@@ -209,7 +209,6 @@ class Graph:
         if len(self.base_case2) > 0:
             # current_path = self.base_case2[-1]
             current_path = starting_vertex
-            # print("1", current_path)
         else:
             current_path = [0]
         
@@ -227,11 +226,9 @@ class Graph:
         elif type(starting_vertex) == list:
             if starting_vertex not in self.base_case2 and starting_vertex.count(current_node) == 1:
                 self.base_case2.append(starting_vertex)
-                # print(self.base_case2)
                 neighbors = self.get_neighbors(current_node)
                 for neighbor in neighbors:
                     neighbor_path = current_path.copy()
-                    # print("2",current_path)
                     neighbor_path.append(neighbor)
                     self.dfs_recursive(neighbor_path, destination_vertex)
             else:
@@ -240,11 +237,8 @@ class Graph:
             self.base_case2.append([starting_vertex])
             neighbors = self.get_neighbors(starting_vertex)
             for neighbor in neighbors:
-                    # print(neighbor)
                     neighbor_path = [starting_vertex].copy()
-                    # print(neighbor_path)
                     neighbor_path.append(neighbor)
-                    # print("neigh",neighbor_path)
                     self.dfs_recursive(neighbor_path, destination_vertex)
         # print(self.recursive_end)
         if len(self.recursive_end) >= 1:
