@@ -129,7 +129,7 @@ class Graph:
         # check c's next neighbor, and so on until global stack empty? OR starting vertex == a
 
 
-
+    breadth_neighbors = []
 
 
     def bfs(self, starting_vertex, destination_vertex):
@@ -138,7 +138,38 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # make a queue
+        q = Queue()
+        # enqueue our start node
+        q.enqueue(starting_vertex)
+
+        # # make a set to track visited nodes
+        # visited = set()
+        self.breadth_neighbors.append(starting_vertex)
+
+        # while queue still has things in it
+        while q.size() > 0:
+        ## dq from front of the line, this is our current node
+            current_node = q.dequeue()
+        ## check if we've visited, if not:
+            if current_node is not destination_vertex: #not in self.breadth_neighbors and
+        ### mark it as visited
+                
+                # print(current_nsode)
+        ### get its neighbors
+                neighbors = self.get_neighbors(current_node)
+        ### iterate over neighbors,
+                for neighbor in neighbors:
+        #### add to queue
+                    q.enqueue(neighbor)
+                    if neighbor == destination_vertex:
+                        self.breadth_neighbors.append(current_node)
+                        self.breadth_neighbors.append(neighbor)
+            else:
+                return self.breadth_neighbors
+      
+
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
