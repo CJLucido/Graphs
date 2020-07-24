@@ -196,6 +196,7 @@ class Graph:
                     q.push(neighbor_path)
 
     base_case2 = []
+    recursive_end =[]
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -205,33 +206,49 @@ class Graph:
 
         This should be done using recursion.
         """
-
-        current_path = self.base_case2[-1]
+        if len(self.base_case2) > 0:
+            # current_path = self.base_case2[-1]
+            current_path = starting_vertex
+            # print("1", current_path)
+        else:
+            current_path = [0]
+        
         current_node = current_path[-1]
         if current_node == destination_vertex:
-            return current_path
-        elif current_node not in visited:
-            visited.add(current_node)
-            neighbors = self.get_neighbors(current_node)
-            for neighbor in neighbors:
-                neighbor_path = current_path.copy()
-                neighbor_path.append(neighbor)
-                q.push(neighbor_path)
-                
-        if starting_vertex is list:
-            if starting_vertex not in self.base_case2:
+            # print("destiny", destination_vertex)
+            # print('current', current_path)
+            # return current_path
+            self.recursive_end.append(current_path)
+            #WHY ARENT RETURN STATEMENTS EXITING THE IF CONDITIONAL HERE!!!?
+            # exit
+            # return self.recursive_end
+            # print("hit", current_path)
+            # return current_path
+        elif type(starting_vertex) == list:
+            if starting_vertex not in self.base_case2 and starting_vertex.count(current_node) == 1:
                 self.base_case2.append(starting_vertex)
-                print(starting_vertex)
-                neighbors = self.get_neighbors(starting_vertex)
+                # print(self.base_case2)
+                neighbors = self.get_neighbors(current_node)
                 for neighbor in neighbors:
-                    self.dft_recursive(neighbor)
+                    neighbor_path = current_path.copy()
+                    # print("2",current_path)
+                    neighbor_path.append(neighbor)
+                    self.dfs_recursive(neighbor_path, destination_vertex)
             else:
                 pass
         else:
-            self.base_case2.append([starting_vertex)]
+            self.base_case2.append([starting_vertex])
             neighbors = self.get_neighbors(starting_vertex)
-                for neighbor in neighbors:
-                    self.dft_recursive(neighbor)
+            for neighbor in neighbors:
+                    # print(neighbor)
+                    neighbor_path = [starting_vertex].copy()
+                    # print(neighbor_path)
+                    neighbor_path.append(neighbor)
+                    # print("neigh",neighbor_path)
+                    self.dfs_recursive(neighbor_path, destination_vertex)
+        # print(self.recursive_end)
+        if len(self.recursive_end) >= 1:
+            return self.recursive_end[0]
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
