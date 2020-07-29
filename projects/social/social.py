@@ -114,8 +114,9 @@ class SocialGraph:
         for friend in sg.friendships[user_id]:
             visited[friend] = [user_id, friend]
             queue.append(friend)
-            #get neighbors naive
-            for new_friend in queue:
+            # print("queue", queue)
+        #get neighbors naive
+        for new_friend in queue: #adding to queue as it goes (FIFO)
                 if new_friend is None:
                     return
                 elif new_friend in visited:
@@ -124,14 +125,14 @@ class SocialGraph:
                             continue
                         # elif new_connection in visited:
                         #     continue
-                        elif new_connection not in visited:
+                        elif new_connection not in visited: #making sure we don't already have a path (which would be the shortest)
                             queue.append(new_connection)
                             new_path = visited[new_friend].copy()
-                            print("new path", new_path)
+                            # print("new path", new_path)
                             new_path.append(new_connection)
                             visited[new_connection] = new_path
-                            print("new path", new_path)
-                            print("new path", visited[new_connection])
+                            # print("new path", new_path)
+                            # print("new path", visited[new_connection])
                 
 
         return visited
@@ -147,3 +148,45 @@ if __name__ == '__main__':
 
 #{1: {9, 4, 5, 7}, 2: {7}, 3: {8, 6}, 4: {1}, 5: {8, 1, 6}, 6: {3, 5}, 7: {8, 1, 2}, 8: {3, 5, 7}, 9: {1}, 10: set()}
 #{9: [1, 9], 4: [1, 4], 5: [1, 5], 8: [1, 5, 8], 6: [1, 5, 6], 3: [1, 5, 8, 3], 7: [1, 7], 2: [1, 5, 8, 7, 2]}
+
+#this out put shouldn't be printing the path to 2 through 5 because 7 should be being explored before 8!!!
+
+#Ah, searching the queue needed to be done at the same scope as creation of it or it will happen before all of our first entries are made (causing issues with the sequence)
+
+
+#  def get_all_social_paths(self, user_id):
+#         """
+#         Takes a user's user_id as an argument
+
+#         Returns a dictionary containing every user in that user's
+#         extended network with the shortest friendship path between them.
+
+#         The key is the friend's ID and the value is the path.
+#         """
+#         visited = {}  # Note that this is a dictionary, not a set
+#         # !!!! IMPLEMENT ME
+#         queue = []
+
+#         for friend in sg.friendships[user_id]:
+#             visited[friend] = [user_id, friend]
+#             queue.append(friend)
+#             print("queue", queue)
+#             #get neighbors naive
+#             for new_friend in queue: THIS NEEDED TO MOVE TO SAME SCOPE AS LINE 170!!!
+#                 if new_friend is None:
+#                     return
+#                 elif new_friend in visited:
+#                     for new_connection in sg.friendships[new_friend]:
+#                         if new_connection == user_id:
+#                             continue
+#                         # elif new_connection in visited:
+#                         #     continue
+#                         elif new_connection not in visited:
+#                             queue.append(new_connection)
+#                             new_path = visited[new_friend].copy()
+#                             print("new path", new_path)
+#                             new_path.append(new_connection)
+#                             visited[new_connection] = new_path
+#                             print("new path", new_path)
+#                             print("new path", visited[new_connection])
+                
