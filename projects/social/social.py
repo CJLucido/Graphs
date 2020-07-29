@@ -24,6 +24,8 @@ class SocialGraph:
         #Adjacency list representation of a graph
         self.friendships = {}
 
+        self.count = 0
+
     def add_friendship(self, user_id, friend_id):
         """
         Creates a bi-directional friendship
@@ -32,6 +34,7 @@ class SocialGraph:
 
         Makes TWO friendships
         """
+        self.count = self.count + 1
         if user_id == friend_id:
             print("WARNING: You cannot be friends with yourself")
         elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
@@ -39,6 +42,7 @@ class SocialGraph:
         else:
             self.friendships[user_id].add(friend_id)
             self.friendships[friend_id].add(user_id)
+
 
     def add_user(self, name):
         """
@@ -140,11 +144,12 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
+    sg.populate_graph(100, 10)
     print(sg.friendships)
     print(sg.friendships[1])
     connections = sg.get_all_social_paths(1)
     print(connections)
+    print(sg.count)
 
 #{1: {9, 4, 5, 7}, 2: {7}, 3: {8, 6}, 4: {1}, 5: {8, 1, 6}, 6: {3, 5}, 7: {8, 1, 2}, 8: {3, 5, 7}, 9: {1}, 10: set()}
 #{9: [1, 9], 4: [1, 4], 5: [1, 5], 8: [1, 5, 8], 6: [1, 5, 6], 3: [1, 5, 8, 3], 7: [1, 7], 2: [1, 5, 8, 7, 2]}
@@ -190,3 +195,10 @@ if __name__ == '__main__':
 #                             print("new path", new_path)
 #                             print("new path", visited[new_connection])
                 
+
+
+
+
+
+
+#solved: we traverse every node and all of their nodes FIFO (bfs), the path that is already tracked should be the smallest so we wont add a node back to teh queue if we already visited it
