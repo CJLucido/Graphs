@@ -35,12 +35,6 @@ traversal_path = []
 traversal_graph = {}
 reverse_traversal = []
 
-# traversal_graph[player.current_room.id] = {}
-
-# for direction in player.current_room.get_exits():
-# 	traversal_graph[player.current_room.id].update({direction: '?'})
-    
-
 print(traversal_graph)
 reverse_direction = { 'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
@@ -57,15 +51,6 @@ def dft_recursive(room, last_room):
 		for direction in player.current_room.get_exits():
 			if direction not in traversal_graph[room.id].keys():
 				traversal_graph[room.id].update({direction: '?'})
-			# elif traversal_graph[room.id][direction] == '?':
-			# 	dft_recursive(room)
-			# elif '?' not in traversal_graph[room.id].values():
-			# 	reverse_key = reverse_traversal.pop()
-			# 	traversal_path.append(reverse_key)
-			# 	player.travel(reverse_key)
-			# 	print("moved ",  reverse_key)
-			# 	print("moved to ",  player.current_room.id)
-			# 	continue
 			else:
 				continue
 	else:
@@ -77,16 +62,7 @@ def dft_recursive(room, last_room):
 
             
 	while len(traversal_graph) != 500:
-		# return
 		if '?' not in traversal_graph[room.id].values(): #all rooms will have exits
-			# print("prepop",  player.current_room.id)
-			# print("reverse",  reverse_traversal)
-			# reverse_key = reverse_traversal.pop()
-			# traversal_path.append(reverse_key)
-			# player.travel(reverse_key)
-			# print("moved ",  reverse_key)
-			# print("moved to ",  player.current_room.id)
-			# return
 			print("prepop",  player.current_room.id)
 			if len(player.current_room.get_exits()) == 1:
 				only_way = player.current_room.get_exits()[0]
@@ -110,15 +86,8 @@ def dft_recursive(room, last_room):
 				print("moved to rando",  player.current_room.id)
 				return
 		elif '?' in traversal_graph[room.id].values():
-			# new_keys = []
-			# for item in traversal_graph[room.id].keys():
-			# 	new_keys.append(item)
-			# print(new_keys)
-			# rando_key = random.choice(new_keys)
-			# while traversal_graph[room.id][random.choice(new_keys)] == '?': #shouldn't this already be random because dicts are unordered
 			for key, value in traversal_graph[room.id].items(): #shouldn't this already be random because dicts are unordered
 				if value == '?':
-					# key = rando_key
 					print("key",key)
 					if len(traversal_path) == 0:
 						reverse_traversal.append(reverse_direction[key])	
@@ -134,9 +103,6 @@ def dft_recursive(room, last_room):
 						traversal_path.append(key)
 						player.travel(key)
 						print("in same rm", player.current_room.id)
-					# if player.current_room.id != room.id:
-					# 	reverse_traversal.append(reverse_direction[key])	
-					# 	traversal_path.append(key)
 					print("currentroom", player.current_room.id)
 					if player.current_room.id != room.id and traversal_graph[room.id][key] == '?':
 						traversal_graph[room.id].update({key: player.current_room.id})
@@ -146,22 +112,13 @@ def dft_recursive(room, last_room):
 						traversal_graph[player.current_room.id].update({reverse_direction[key]: room.id})
 					print(traversal_graph)
 					dft_recursive(player.current_room, room.id)
-    	            #we've popped back to rm ONE but we are in rm 0's loop
 					while player.current_room.id != room.id:
-						# if len(reverse_traversal) > 0 and reverse_traversal[-1] in player.current_room.get_exits():
-						# 	reverse_key = reverse_traversal.pop()
-						# 	traversal_path.append(reverse_key)
-						# 	player.travel(reverse_key)
-						# 	print("moved reverse",  reverse_key)
-						# 	print("moved to reverse",  player.current_room.id)
-						# 	return
-						# else:
 							rando = random.choice(player.current_room.get_exits())     #['n', 's', 'e', 'w'])
 							traversal_path.append(rando)
 							player.travel(rando)
 							print("moved rando 2",  rando)
 							print("moved to rando 2",  player.current_room.id)
-							# return	
+
 					print(len(traversal_path))
 					if traversal_graph[room.id][key] != '?' and len(reverse_traversal) > 0: #not in traversal_graph[room.id].values(): #all rooms will have exits
 						reverse_key = reverse_traversal.pop()
@@ -178,8 +135,6 @@ def dft_recursive(room, last_room):
 				else:
 					continue
 
-		
-# print(traversal_path)
 dft_recursive(first_room, first_prev)
 
 
