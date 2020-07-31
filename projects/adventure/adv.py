@@ -136,11 +136,12 @@ def dft_recursive(room, last_room, way_to):
 						traversal_counter[player.current_room.id]  += 1
 						print("different room", player.current_room.id)
 					else:
-						traversal_path.append(key)
-						player.travel(key)
-						check_for_counter()
-						traversal_counter[player.current_room.id]  += 1
+						# traversal_path.append(key)
+						# player.travel(key)
+						# check_for_counter()
+						# traversal_counter[player.current_room.id]  += 1
 						print("in same rm", player.current_room.id)
+						pass
 					print("currentroom", player.current_room.id)
 					if player.current_room.id != room.id and traversal_graph[room.id][key] == '?':
 						traversal_graph[room.id].update({key: player.current_room.id})
@@ -153,14 +154,14 @@ def dft_recursive(room, last_room, way_to):
 
 					print(traversal_graph)
 					dft_recursive(player.current_room, room.id, key)
-					while player.current_room.id != room.id:
-							rando = random.choice(player.current_room.get_exits())     #['n', 's', 'e', 'w'])
-							traversal_path.append(rando)
-							player.travel(rando)
-							check_for_counter()
-							traversal_counter[player.current_room.id]  += 1
-							print("moved rando 2",  rando)
-							print("moved to rando 2",  player.current_room.id)
+					# while player.current_room.id != room.id:
+					# 		rando = random.choice(player.current_room.get_exits())     #['n', 's', 'e', 'w'])
+					# 		traversal_path.append(rando)
+					# 		player.travel(rando)
+					# 		check_for_counter()
+					# 		traversal_counter[player.current_room.id]  += 1
+					# 		print("moved rando 2",  rando)
+					# 		print("moved to rando 2",  player.current_room.id)
 
 					print(len(traversal_path))
 #COMMENTED OUT UNNECESSARY TRAVERSAL TO BRING UNDER 100k
