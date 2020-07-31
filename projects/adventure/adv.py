@@ -118,8 +118,8 @@ def dft_recursive(room, last_room, way_to):
 			# 	print("moved to rando",  player.current_room.id)
 			# 	return
 		elif '?' in traversal_graph[room.id].values():
-			for key, value in traversal_graph[room.id].items(): #shouldn't this already be random because dicts are unordered
-				if value == '?':
+			for key in random.choice(list(traversal_graph[room.id].keys())): #shouldn't this already be random because dicts are unordered
+				if traversal_graph[room.id][key] == '?':
 					print("key",key)
 					if len(traversal_path) == 0:
 						reverse_traversal.append(reverse_direction[key])	
@@ -172,12 +172,12 @@ def dft_recursive(room, last_room, way_to):
 					# 	print("moved next ?",  reverse_key)
 					# 	print("moved to next ?",  player.current_room.id)
 					# 	continue
-#MAY NEED THE FOLLOWING TO STAY CONSISTENTLY UNDER 60k
-					if len(reverse_traversal) == 0:
-						continue
-					elif '?' not in traversal_graph[player.current_room.id].values():
-						if '?' in traversal_graph[room.id].values(): 
-							dft_recursive(room.id, room.id, key)
+#MAY NEED THE FOLLOWING TO STAY CONSISTENTLY UNDER 60k/////removing the random while renders this unnecessary
+					# if len(reverse_traversal) == 0:
+					# 	continue
+					# elif '?' not in traversal_graph[player.current_room.id].values():
+					# 	if '?' in traversal_graph[room.id].values(): 
+					# 		dft_recursive(room.id, room.id, key)
 				else:
 					continue
 
