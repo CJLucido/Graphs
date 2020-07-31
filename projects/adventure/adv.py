@@ -74,23 +74,17 @@ def dft_recursive(room, last_room, way_to):
             
 	while len(traversal_graph) != 500:
 		if '?' not in traversal_graph[room.id].values(): #all rooms will have exits
-			print("prepop",  player.current_room.id)
-			# if len(player.current_room.get_exits()) > 1 and traversal_counter[player.current_room.id] > 4:
-			# 	reverse_key = reverse_traversal.pop()
-			# 	# traversal_path.append(reverse_key)
-			# 	traversal_path.pop()
-			# 	player.travel(reverse_key)
+			# print("prepop",  player.current_room.id)
+			# if len(player.current_room.get_exits()) == 1:
+			# 	only_way = player.current_room.get_exits()[0]
+			# 	traversal_path.append(only_way)
+			# 	player.travel(only_way)
+			# 	check_for_counter()
+			# 	traversal_counter[player.current_room.id]  += 1
+			# 	print("moved necessarily",  only_way)
+			# 	print("moved to only",  player.current_room.id)
 			# 	return
-			if len(player.current_room.get_exits()) == 1:
-				only_way = player.current_room.get_exits()[0]
-				traversal_path.append(only_way)
-				player.travel(only_way)
-				check_for_counter()
-				traversal_counter[player.current_room.id]  += 1
-				print("moved necessarily",  only_way)
-				print("moved to only",  player.current_room.id)
-				return
-			else:
+			# else:
 				reverse_key = reverse_direction[way_to]
 				traversal_path.append(reverse_key)
 				player.travel(reverse_key)
@@ -122,14 +116,14 @@ def dft_recursive(room, last_room, way_to):
 				if traversal_graph[room.id][key] == '?':
 					print("key",key)
 					if len(traversal_path) == 0:
-						reverse_traversal.append(reverse_direction[key])	
+						# reverse_traversal.append(reverse_direction[key])	
 						traversal_path.append(key)
 						player.travel(key)
 						check_for_counter()
 						traversal_counter[player.current_room.id]  += 1
 						print("first move", player.current_room.id)
 					elif player.current_room.id != last_room:
-						reverse_traversal.append(reverse_direction[key])	
+						# reverse_traversal.append(reverse_direction[key])	
 						traversal_path.append(key)
 						player.travel(key)
 						check_for_counter()
