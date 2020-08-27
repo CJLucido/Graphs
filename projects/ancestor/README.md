@@ -46,3 +46,10 @@ Clarifications:
 * IDs will always be positive integers.
 * A parent may have any number of children.
 
+nodes are ancestors
+edges are their parents
+pairs are tuples in a list
+get neighbor
+if we start from the bottom we go up until it ends
+dfs - queue, a way to track the depth difference between each path and return the longest (cache path if longer than path in cache, return cache value when cache = 1)
+compare depth between outputs
